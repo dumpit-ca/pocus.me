@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:focustimer/controllers/history_controller.dart';
-import 'package:focustimer/models/history_model.dart';
-import 'package:focustimer/utils/colors.dart';
-import 'package:focustimer/widgets/history_item.dart';
+import 'package:pocusme/controllers/history_controller.dart';
+import 'package:pocusme/models/history_model.dart';
+import 'package:pocusme/utils/colors.dart';
+import 'package:pocusme/widgets/history_item.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);

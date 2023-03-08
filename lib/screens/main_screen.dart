@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:focustimer/controllers/history_controller.dart';
-import 'package:focustimer/models/history_model.dart';
-import 'package:focustimer/screens/about_me_screen.dart';
-import 'package:focustimer/screens/history_screen.dart';
-import 'package:focustimer/utils/colors.dart';
+import 'package:pocusme/controllers/history_controller.dart';
+import 'package:pocusme/models/history_model.dart';
+import 'package:pocusme/screens/about_me_screen.dart';
+import 'package:pocusme/screens/history_screen.dart';
+import 'package:pocusme/utils/colors.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class MainScreen extends StatefulWidget {

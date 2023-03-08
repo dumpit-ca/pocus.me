@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focustimer/utils/colors.dart';
+import 'package:pocusme/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutMeScreen extends StatefulWidget {

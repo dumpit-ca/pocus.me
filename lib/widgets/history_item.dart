@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:focustimer/models/history_model.dart';
-import 'package:focustimer/utils/colors.dart';
+import 'package:pocusme/models/history_model.dart';
+import 'package:pocusme/utils/colors.dart';
 import 'package:intl/intl.dart';
 
 class HistoryItem extends StatefulWidget {

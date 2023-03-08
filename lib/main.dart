@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:focustimer/screens/main_screen.dart';
-import 'package:focustimer/utils/colors.dart';
+import 'package:pocusme/screens/main_screen.dart';
+import 'package:pocusme/utils/colors.dart';
 
 void main() {
   runApp(const MyApp());

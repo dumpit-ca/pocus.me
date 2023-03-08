@@ -1,4 +1,4 @@
-package `in`.codewithkamal.focustimer
+package `in`.codewithkamal.pocusme
 
 import io.flutter.embedding.android.FlutterActivity
 

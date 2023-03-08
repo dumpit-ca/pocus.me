@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.codewithkamal.focustimer">
+    package="in.codewithkamal.pocusme">
    <application
-        android:label="focustimer"
+        android:label="pocusme"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

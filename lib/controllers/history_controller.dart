@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:focustimer/models/history_model.dart';
+import 'package:pocusme/models/history_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryController {
