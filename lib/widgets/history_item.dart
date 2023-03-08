@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pocusme/models/history_model.dart';
-import 'package:pocusme/utils/colors.dart';
 import 'package:intl/intl.dart';
 
 class HistoryItem extends StatefulWidget {
@@ -37,7 +36,7 @@ class _HistoryItemState extends State<HistoryItem> {
                       : DateFormat('MM/dd/yyyy')
                           .format(widget.history.dateTime),
               style: TextStyle(
-                color: green1,
+                color: Colors.green[900],
                 fontSize: 14,
               ),
             ),
@@ -50,7 +49,7 @@ class _HistoryItemState extends State<HistoryItem> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
             decoration: BoxDecoration(
-              color: green1,
+              color: Colors.green[300],
               borderRadius: BorderRadius.circular(7),
               boxShadow: [
                 BoxShadow(
@@ -70,14 +69,14 @@ class _HistoryItemState extends State<HistoryItem> {
                     Text(
                       "You have focused for",
                       style: TextStyle(
-                        color: green2,
+                        color: Colors.green[900],
                         fontSize: 16,
                       ),
                     ),
                     Text(
                       "${widget.history.focusedSecs <= 60 ? widget.history.focusedSecs.toInt() : (widget.history.focusedSecs ~/ 60).toInt()} ${widget.history.focusedSecs.toInt() <= 60 ? "Secs" : "Mins"}",
                       style: TextStyle(
-                        color: green4,
+                        color: Colors.green[900],
                         fontSize: 23,
                         fontWeight: FontWeight.w500,
                       ),
@@ -90,7 +89,7 @@ class _HistoryItemState extends State<HistoryItem> {
                   child: Text(
                     DateFormat('hh:mm a').format(widget.history.dateTime),
                     style: TextStyle(
-                      color: green2,
+                      color: Colors.green[600],
                       fontSize: 13,
                     ),
                   ),

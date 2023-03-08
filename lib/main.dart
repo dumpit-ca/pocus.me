@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pocusme/screens/main_screen.dart';
-import 'package:pocusme/utils/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Focus Timer',
       theme: ThemeData(
           appBarTheme: AppBarTheme(
-              actionsIconTheme: IconThemeData(color: green1, size: 27))),
+              actionsIconTheme:
+                  IconThemeData(color: Colors.green[600], size: 27))),
       home: const MainScreen(),
     );
   }

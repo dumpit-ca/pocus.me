@@ -7,7 +7,6 @@ import 'package:pocusme/controllers/history_controller.dart';
 import 'package:pocusme/models/history_model.dart';
 import 'package:pocusme/screens/about_me_screen.dart';
 import 'package:pocusme/screens/history_screen.dart';
-import 'package:pocusme/utils/colors.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -33,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: green1));
+        SystemUiOverlayStyle(statusBarColor: Colors.green[300]));
     HistoryController.init();
   }
 
@@ -72,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: green2,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -90,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                   IconButton(
                     icon: Icon(
                       Icons.info_outline,
-                      color: green1,
+                      color: Colors.green[600],
                       size: 35,
                     ),
                     onPressed: () {
@@ -104,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                   IconButton(
                     icon: Icon(
                       Icons.history,
-                      color: green1,
+                      color: Colors.green[600],
                       size: 35,
                     ),
                     onPressed: () {
@@ -141,10 +140,10 @@ class _MainScreenState extends State<MainScreen> {
                                   shadowWidth: 0,
                                 ),
                                 customColors: CustomSliderColors(
-                                  trackColor: green1,
-                                  progressBarColor: green4,
+                                  trackColor: Colors.green[300],
+                                  progressBarColor: Colors.green[700],
                                   hideShadow: true,
-                                  dotColor: green4,
+                                  dotColor: Colors.green[700],
                                 ),
                                 size: 250,
                                 angleRange: 360,
@@ -160,8 +159,9 @@ class _MainScreenState extends State<MainScreen> {
                                   child: Text(
                                     "${(value ~/ 60).toInt().toString().padLeft(2, '0')}:${(value % 60).toInt().toString().padLeft(2, '0')}",
                                     style: TextStyle(
-                                      color: green1,
+                                      color: Colors.black,
                                       fontSize: 46,
+                                      fontWeight: FontWeight.w900,
                                     ),
                                   ),
                                 );
@@ -200,14 +200,14 @@ class _MainScreenState extends State<MainScreen> {
                         width: 200,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: green1,
+                          color: Colors.green[300],
                           borderRadius: BorderRadius.circular(7),
                           boxShadow: [
                             BoxShadow(
                               spreadRadius: 3,
                               blurRadius: 3,
                               offset: const Offset(0, 3),
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withOpacity(0.2),
                             )
                           ],
                         ),
@@ -215,9 +215,9 @@ class _MainScreenState extends State<MainScreen> {
                         child: Text(
                           isStarted ? "STOP" : "START",
                           style: TextStyle(
-                            color: green4,
+                            color: Colors.green[900],
                             fontSize: 24,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ),

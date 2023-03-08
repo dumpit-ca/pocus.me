@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pocusme/controllers/history_controller.dart';
 import 'package:pocusme/models/history_model.dart';
-import 'package:pocusme/utils/colors.dart';
 import 'package:pocusme/widgets/history_item.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -20,7 +19,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: green1));
+        SystemUiOverlayStyle(statusBarColor: Colors.green[300]));
     HistoryController.init();
     listHistory.addAll(historyController.read("history"));
     listHistory.sort((a, b) {
@@ -31,16 +30,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: green2,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: green1),
+        iconTheme: IconThemeData(color: Colors.green[600]),
         title: Text(
           "History",
           style: TextStyle(
-            color: green1,
+            color: Colors.green[600],
             fontWeight: FontWeight.w500,
             fontSize: 24,
           ),
