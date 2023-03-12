@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.codewithkamal.pocusme">
+    package="ph.dreamteam.pocusme">
    <application
         android:label="pocusme"
         android:icon="@mipmap/launcher_icon">

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "283065644765",
+    "project_id": "pocusme-4f20b",
+    "storage_bucket": "pocusme-4f20b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283065644765:android:3d19e527b78fa704d58d34",
+        "android_client_info": {
+          "package_name": "ph.dreamteam.pocusme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283065644765-9bufuhsjl4ln53dbpjkuksmppkanjqev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCQV5Q7cfKwbc6BQZfhIl3XYj--pozO_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283065644765-9bufuhsjl4ln53dbpjkuksmppkanjqev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
