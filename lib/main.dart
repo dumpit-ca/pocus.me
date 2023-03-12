@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Pocus.me',
         theme: ThemeData(
+            fontFamily: 'Lexend',
             appBarTheme: AppBarTheme(
                 actionsIconTheme:
                     IconThemeData(color: Colors.green[600], size: 27))),
