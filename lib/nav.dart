@@ -22,6 +22,8 @@ class NavState extends State<Nav> {
     "About": GlobalKey<NavigatorState>(),
   };
   int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white);
 
   void _selectTab(String tabItem, int index) {
     if (tabItem == _currentPage) {
@@ -58,7 +60,8 @@ class NavState extends State<Nav> {
           _buildOffstageNavigator("About"),
         ]),
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.blueAccent,
+          selectedItemColor: Color.fromRGBO(13, 19, 33, 1),
+          unselectedItemColor: Color.fromRGBO(211, 221, 223, 1),
           onTap: (int index) {
             _selectTab(pageKeys[index], index);
           },
