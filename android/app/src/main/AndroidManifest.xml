@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ph.dreamteam.pocusme">
    <application
-        android:label="pocusme"
-        android:icon="@mipmap/launcher_icon">
+        android:label="pocus.me"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
