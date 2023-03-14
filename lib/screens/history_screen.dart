@@ -1,8 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocusme/controllers/history_controller.dart';
-import 'package:pocusme/models/history_model.dart';
-import 'package:pocusme/widgets/history_item.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -12,66 +10,80 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  HistoryController historyController = HistoryController();
-  List<History> listHistory = [];
+  final CollectionReference _tasks =
+      FirebaseFirestore.instance.collection('tasks');
+  final Query _tasklist = FirebaseFirestore.instance
+      .collection('tasks')
+      .where('done', isEqualTo: true);
+
+  final TextEditingController _taskController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.green[300]));
-    HistoryController.init();
-    listHistory.addAll(historyController.read("history"));
-    listHistory.sort((a, b) {
-      return b.dateTime.compareTo(a.dateTime);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.green[600]),
-        title: Text(
-          "History",
-          style: TextStyle(
-            color: Colors.green[600],
-            fontWeight: FontWeight.w500,
-            fontSize: 24,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          centerTitle: false,
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: Colors.green[600]),
+          title: Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Text(
+              "Finished",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
+              ),
+            ),
           ),
         ),
-      ),
-      body: ListView.separated(
-        itemBuilder: (context, index) {
-          final item = listHistory.elementAt(index);
-          if (index != 0 &&
-              (item.dateTime.day ==
-                  listHistory.elementAt(index - 1).dateTime.day) &&
-              (item.dateTime.month ==
-                  listHistory.elementAt(index - 1).dateTime.month) &&
-              (item.dateTime.year ==
-                  listHistory.elementAt(index - 1).dateTime.year)) {
-            return HistoryItem(
-              history: item,
-              isNewDay: false,
-            );
-          } else {
-            return HistoryItem(
-              history: item,
-              isNewDay: true,
-            );
-          }
-        },
-        itemCount: listHistory.length,
-        separatorBuilder: (BuildContext context, int index) => const Divider(
-          thickness: 0,
-          color: Colors.transparent,
-        ),
-      ),
-    );
+        body: Container(
+          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: StreamBuilder(
+              stream: _tasklist.snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                if (streamSnapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: streamSnapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot documentSnapshot =
+                            streamSnapshot.data!.docs[index];
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              side: BorderSide(
+                                  color: Colors.grey[300]!, width: 1)),
+                          margin: const EdgeInsets.all(10),
+                          child: ListTile(
+                            title: Text(documentSnapshot.get('task'),
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w600)),
+                            subtitle: Text(
+                                (documentSnapshot.get('time')! / 60)
+                                        .toString() +
+                                    ' minutes · ' +
+                                    documentSnapshot.get('date'),
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w400)),
+                          ),
+                        );
+                      });
+                }
+                return Center(child: CircularProgressIndicator());
+              }),
+        ));
   }
 }

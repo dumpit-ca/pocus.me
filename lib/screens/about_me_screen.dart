@@ -18,15 +18,18 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.green[600]),
-        title: Text(
-          "About The App",
-          style: TextStyle(
-            color: Colors.green[600],
-            fontWeight: FontWeight.w500,
-            fontSize: 24,
+        title: Padding(
+          padding: EdgeInsets.only(top: 10.0),
+          child: Text(
+            "About the App",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              fontSize: 30,
+            ),
           ),
         ),
       ),
@@ -58,6 +61,72 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                   color: Colors.green[900],
                 ),
               ),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Colors.grey[300]!, width: 1)),
+                  margin: EdgeInsets.fromLTRB(15, 20, 15, 10),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: ListTile(
+                            title: Text("Cassandra Dumpit",
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w600)),
+                            subtitle: Text("UI/UX Developer",
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w400)),
+                            trailing: SizedBox(width: 50)),
+                      )
+                    ],
+                  )),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Colors.grey[300]!, width: 1)),
+                  margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: ListTile(
+                            title: Text("Jhon Louie De Leon",
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w600)),
+                            subtitle: Text("Lead Designer",
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w400)),
+                            trailing: SizedBox(width: 50)),
+                      )
+                    ],
+                  )),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Colors.grey[300]!, width: 1)),
+                  margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: ListTile(
+                            title: Text("Frank Vincent Gesmundo",
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w600)),
+                            subtitle: Text("Lead Developer",
+                                style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontWeight: FontWeight.w400)),
+                            trailing: SizedBox(width: 50)),
+                      )
+                    ],
+                  )),
             ],
           ),
         ),

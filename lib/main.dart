@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pocusme/screens/main_screen.dart';
-import 'package:pocusme/controllers/history_controller.dart';
-import 'package:pocusme/models/history_model.dart';
-import 'package:pocusme/screens/about_me_screen.dart';
-import 'package:pocusme/screens/history_screen.dart';
-import 'package:pocusme/screens/home_screen.dart';
 import 'package:pocusme/nav.dart';
 import 'package:firebase_core/firebase_core.dart';
 

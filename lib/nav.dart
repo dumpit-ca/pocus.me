@@ -1,10 +1,6 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:pocusme/screens/main_screen.dart';
-import 'package:pocusme/controllers/history_controller.dart';
-import 'package:pocusme/models/history_model.dart';
-import 'package:pocusme/screens/about_me_screen.dart';
-import 'package:pocusme/screens/history_screen.dart';
 import 'package:pocusme/tab_navigator.dart';
 
 class Nav extends StatefulWidget {
@@ -14,10 +10,10 @@ class Nav extends StatefulWidget {
 
 class NavState extends State<Nav> {
   String _currentPage = "Home";
-  List<String> pageKeys = ["Home", "Pending", "History", "About"];
+  List<String> pageKeys = ["Home", "Tasks", "History", "About"];
   Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "Home": GlobalKey<NavigatorState>(),
-    "Pending": GlobalKey<NavigatorState>(),
+    "Tasks": GlobalKey<NavigatorState>(),
     "History": GlobalKey<NavigatorState>(),
     "About": GlobalKey<NavigatorState>(),
   };
@@ -55,7 +51,7 @@ class NavState extends State<Nav> {
       child: Scaffold(
         body: Stack(children: <Widget>[
           _buildOffstageNavigator("Home"),
-          _buildOffstageNavigator("Pending"),
+          _buildOffstageNavigator("Tasks"),
           _buildOffstageNavigator("History"),
           _buildOffstageNavigator("About"),
         ]),
@@ -72,8 +68,8 @@ class NavState extends State<Nav> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.pending),
-              label: 'Pending',
+              icon: Icon(Icons.check_box),
+              label: 'Tasks',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.history),
