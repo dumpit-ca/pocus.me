@@ -275,7 +275,7 @@ class _TaskScreenState extends State<TaskScreen> {
                               borderRadius: BorderRadius.circular(15.0),
                               side: BorderSide(
                                   color: Colors.grey[300]!, width: 1)),
-                          margin: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(8),
                           child: ListTile(
                               title: Text(documentSnapshot.get('task'),
                                   style: TextStyle(
