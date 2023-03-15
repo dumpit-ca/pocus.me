@@ -40,87 +40,89 @@ class _TaskScreenState extends State<TaskScreen> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    controller: _taskController,
-                    decoration: const InputDecoration(
-                      labelText: 'Task',
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                  right: 20,
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _taskController,
+                      decoration: const InputDecoration(
+                        labelText: 'Task',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    controller: _timeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Time (in minutes)',
+                    TextField(
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      controller: _timeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Time (in minutes)',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller:
-                        _dateController, //editing controller of this TextField
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.calendar_today), //icon of text field
-                        labelText: "Enter Date" //label text of field
-                        ),
-                    readOnly:
-                        true, //set it true, so that user will not able to edit text
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime
-                              .now(), //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime(2101));
+                    TextField(
+                      controller:
+                          _dateController, //editing controller of this TextField
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.calendar_today), //icon of text field
+                          labelText: "Enter Date" //label text of field
+                          ),
+                      readOnly:
+                          true, //set it true, so that user will not able to edit text
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime
+                                .now(), //DateTime.now() - not to allow to choose before today.
+                            lastDate: DateTime(2101));
 
-                      if (pickedDate != null) {
-                        print(
-                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                        String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-                        print(
-                            formattedDate); //formatted date output using intl package =>  2021-03-16
-                        //you can implement different kind of Date Format here according to your requirement
+                        if (pickedDate != null) {
+                          print(
+                              pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          print(
+                              formattedDate); //formatted date output using intl package =>  2021-03-16
+                          //you can implement different kind of Date Format here according to your requirement
 
-                        setState(() {
-                          _dateController.text =
-                              formattedDate; //set output date to TextField value.
-                        });
-                      } else {
-                        print("Date is not selected");
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    child: const Text('Add'),
-                    onPressed: () async {
-                      final String task = _taskController.text;
-                      final double? time =
-                          (double.tryParse(_timeController.text)! * 60);
-                      final date = _dateController.text;
-                      if (time != null) {
-                        await _tasks.add({
-                          'task': task,
-                          'time': time,
-                          'date': date,
-                          'done': false
-                        });
-                        _taskController.clear();
-                        _dateController.clear();
-                        _timeController.clear();
-                      }
-                    },
-                  ),
-                ]),
+                          setState(() {
+                            _dateController.text =
+                                formattedDate; //set output date to TextField value.
+                          });
+                        } else {
+                          print("Date is not selected");
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      child: const Text('Add'),
+                      onPressed: () async {
+                        final String task = _taskController.text;
+                        final double? time =
+                            (double.tryParse(_timeController.text)! * 60);
+                        final date = _dateController.text;
+                        if (time != null) {
+                          await _tasks.add({
+                            'task': task,
+                            'time': time,
+                            'date': date,
+                            'done': false
+                          });
+                          _taskController.clear();
+                          _dateController.clear();
+                          _timeController.clear();
+                        }
+                      },
+                    ),
+                  ]),
+            ),
           );
         });
   }
@@ -136,85 +138,86 @@ class _TaskScreenState extends State<TaskScreen> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    controller: _taskController,
-                    decoration: const InputDecoration(
-                      labelText: 'Task',
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                  right: 20,
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _taskController,
+                      decoration: const InputDecoration(
+                        labelText: 'Task',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    controller: _timeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Time (in minutes)',
+                    TextField(
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      controller: _timeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Time (in minutes)',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller:
-                        _dateController, //editing controller of this TextField
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.calendar_today), //icon of text field
-                        labelText: "Enter Date" //label text of field
-                        ),
-                    readOnly:
-                        true, //set it true, so that user will not able to edit text
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime
-                              .now(), //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime(2101));
+                    TextField(
+                      controller:
+                          _dateController, //editing controller of this TextField
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.calendar_today), //icon of text field
+                          labelText: "Enter Date" //label text of field
+                          ),
+                      readOnly:
+                          true, //set it true, so that user will not able to edit text
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime
+                                .now(), //DateTime.now() - not to allow to choose before today.
+                            lastDate: DateTime(2101));
 
-                      if (pickedDate != null) {
-                        print(
-                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                        String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-                        print(
-                            formattedDate); //formatted date output using intl package =>  2021-03-16
-                        //you can implement different kind of Date Format here according to your requirement
+                        if (pickedDate != null) {
+                          print(
+                              pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          print(
+                              formattedDate); //formatted date output using intl package =>  2021-03-16
+                          //you can implement different kind of Date Format here according to your requirement
 
-                        setState(() {
-                          _dateController.text =
-                              formattedDate; //set output date to TextField value.
-                        });
-                      } else {
-                        print("Date is not selected");
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    child: const Text('Update'),
-                    onPressed: () async {
-                      final String task = _taskController.text;
-                      final double? time =
-                          (double.tryParse(_timeController.text)! * 60);
-                      final date = _dateController.text;
-                      if (time != null) {
-                        await _tasks
-                            .doc(documentSnapshot!.id)
-                            .update({'task': task, 'time': time, 'date': date});
-                        _taskController.clear();
-                        _dateController.clear();
-                        _timeController.clear();
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
-                ]),
+                          setState(() {
+                            _dateController.text =
+                                formattedDate; //set output date to TextField value.
+                          });
+                        } else {
+                          print("Date is not selected");
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      child: const Text('Update'),
+                      onPressed: () async {
+                        final String task = _taskController.text;
+                        final double? time =
+                            (double.tryParse(_timeController.text)! * 60);
+                        final date = _dateController.text;
+                        if (time != null) {
+                          await _tasks.doc(documentSnapshot!.id).update(
+                              {'task': task, 'time': time, 'date': date});
+                          _taskController.clear();
+                          _dateController.clear();
+                          _timeController.clear();
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
+                  ]),
+            ),
           );
         });
   }
