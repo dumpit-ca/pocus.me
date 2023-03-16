@@ -11,6 +11,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pocusme/column_builder.dart';
+import 'package:pocusme/data/userdata.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -31,10 +32,13 @@ class _MainScreenState extends State<MainScreen> {
 
   late Timer _timer;
 
+  UserData userData = UserData();
+
   final CollectionReference _tasks =
       FirebaseFirestore.instance.collection('tasks');
   Query _today = FirebaseFirestore.instance
       .collection('tasks')
+      .where('user', isEqualTo: UserData().getUserId())
       .where('done', isEqualTo: false)
       .where('date',
           isEqualTo: DateFormat('yyyy-MM-dd').format(DateTime.now()));
@@ -92,6 +96,21 @@ class _MainScreenState extends State<MainScreen> {
         body: SingleChildScrollView(
             child: Column(
           children: [
+            SizedBox(height: 20),
+            Container(
+              child: Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Text(
+                  "Welcome!",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+            Text(userData.getFname()),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 350,

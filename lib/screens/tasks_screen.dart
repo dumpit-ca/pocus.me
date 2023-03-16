@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pocusme/data/userdata.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,9 +18,11 @@ class TaskScreen extends StatefulWidget {
 class _TaskScreenState extends State<TaskScreen> {
   final CollectionReference _tasks =
       FirebaseFirestore.instance.collection('tasks');
+
   Query _tasklist = FirebaseFirestore.instance
       .collection('tasks')
-      .where('done', isNotEqualTo: true);
+      .where('user', isEqualTo: UserData().getUserId())
+      .where('done', isEqualTo: false);
 
   final TextEditingController _taskController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
@@ -110,6 +113,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         final date = _dateController.text;
                         if (time != null) {
                           await _tasks.add({
+                            'user': UserData().getUserId(),
                             'task': task,
                             'time': time,
                             'date': date,

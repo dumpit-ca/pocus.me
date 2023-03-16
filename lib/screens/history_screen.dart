@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pocusme/data/userdata.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       FirebaseFirestore.instance.collection('tasks');
   final Query _tasklist = FirebaseFirestore.instance
       .collection('tasks')
+      .where('user', isEqualTo: UserData().getUserId())
       .where('done', isEqualTo: true);
 
   final TextEditingController _taskController = TextEditingController();

@@ -1,5 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pocusme/auth/register.dart';
+import 'package:pocusme/data/userdata.dart';
+import 'package:pocusme/main.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:restart_app/restart_app.dart';
 
 class AboutMeScreen extends StatefulWidget {
   const AboutMeScreen({Key? key}) : super(key: key);
@@ -9,9 +16,6 @@ class AboutMeScreen extends StatefulWidget {
 }
 
 class _AboutMeScreenState extends State<AboutMeScreen> {
-  void _launchURL(String _url) async => await canLaunch(_url)
-      ? await launch(_url)
-      : throw 'Could not launch $_url';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +64,23 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                   fontWeight: FontWeight.w500,
                   color: Colors.green[900],
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('You are being logged out...'),
+                    ),
+                  );
+                  final storage = FlutterSecureStorage();
+                  await storage.deleteAll();
+                  await FirebaseAuth.instance.signOut().then((value) {
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      Restart.restartApp();
+                    });
+                  });
+                },
+                child: Text('Log Out'),
               ),
               Card(
                   shape: RoundedRectangleBorder(
