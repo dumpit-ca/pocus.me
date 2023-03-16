@@ -288,12 +288,12 @@ class _MainScreenState extends State<MainScreen> {
                                                         _timer.cancel();
                                                       }
                                                       isStarted = false;
-                                                      currentTaskId = '';
-                                                      currentTaskInfo = '';
-                                                      currentTaskMin = '';
-                                                      value = defaultValue;
 
+                                                      value = defaultValue;
                                                       if (currentTaskId != '') {
+                                                        currentTaskId = '';
+                                                        currentTaskInfo = '';
+                                                        currentTaskMin = '';
                                                         ScaffoldMessenger.of(
                                                                 context)
                                                             .showSnackBar(
