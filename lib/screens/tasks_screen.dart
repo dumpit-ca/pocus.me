@@ -349,7 +349,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                       color: Color.fromRGBO(28, 76, 78, 1),
                                       fontWeight: FontWeight.w600)),
                               subtitle: Text(
-                                  (documentSnapshot.get('time')! / 60)
+                                  ((documentSnapshot.get('time')! / 60).round())
                                           .toString() +
                                       ' minutes · ' +
                                       documentSnapshot.get('date'),

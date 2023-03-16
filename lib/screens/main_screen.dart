@@ -62,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
     await _tasks.add({
       'user': UserData().getUserId(),
       'task': 'Break Mode',
-      'time': focusedMins.floor(),
+      'time': focusedMins,
       'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
       'done': true
     });
@@ -178,8 +178,10 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                         );
                                       }
-                                      _timer.cancel();
-                                      isStarted = false;
+                                      if (isStarted) {
+                                        _timer.cancel();
+                                        isStarted = false;
+                                      }
                                       currentTaskId = '';
                                       currentTaskInfo = '';
                                       currentTaskMin = '';

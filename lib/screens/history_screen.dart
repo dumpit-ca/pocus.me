@@ -29,6 +29,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
         SystemUiOverlayStyle(statusBarColor: Colors.green[300]));
   }
 
+  Future<void> _delete(String taskId) async {
+    await _tasks.doc(taskId).delete();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Task Deleted'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,13 +83,22 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     color: Color.fromRGBO(28, 76, 78, 1),
                                     fontWeight: FontWeight.w600)),
                             subtitle: Text(
-                                (documentSnapshot.get('time')! / 60)
+                                ((documentSnapshot.get('time')! / 60))
+                                        .round()
                                         .toString() +
                                     ' minutes · ' +
                                     documentSnapshot.get('date'),
                                 style: TextStyle(
                                     color: Color.fromRGBO(28, 76, 78, 1),
                                     fontWeight: FontWeight.w400)),
+                            trailing: SizedBox(
+                              width: 50,
+                              child: IconButton(
+                                  onPressed: () {
+                                    _delete(documentSnapshot.id);
+                                  },
+                                  icon: const Icon(Icons.delete)),
+                            ),
                           ),
                         );
                       });
