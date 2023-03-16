@@ -1,10 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pocusme/auth/register.dart';
-import 'package:pocusme/data/userdata.dart';
-import 'package:pocusme/main.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:restart_app/restart_app.dart';
 

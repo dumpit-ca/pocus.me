@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pocusme/screens/main_screen.dart';
 import 'package:pocusme/screens/about_me_screen.dart';
 import 'package:pocusme/screens/tasks_screen.dart';
-import 'package:pocusme/screens/home_screen.dart';
 import 'package:pocusme/screens/history_screen.dart';
 
 class TabNavigatorRoutes {

@@ -1,14 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-import 'package:pocusme/screens/about_me_screen.dart';
-import 'package:pocusme/screens/history_screen.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pocusme/column_builder.dart';
 import 'package:pocusme/data/userdata.dart';
@@ -134,7 +130,7 @@ class _MainScreenState extends State<MainScreen> {
                                 SleekCircularSlider(
                                   initialValue: value,
                                   min: 0,
-                                  max: 5401,
+                                  max: 10800,
                                   appearance: CircularSliderAppearance(
                                     customWidths: CustomSliderWidths(
                                       trackWidth: 15,

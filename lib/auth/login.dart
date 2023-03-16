@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pocusme/auth/register.dart';
 import 'package:pocusme/main_app.dart';
@@ -39,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
           UserData userData = UserData();
           userData.userSetId = userId;
           userData.userSetFname = await (data!['fname']);
-          print('data ' + await data!['fname']);
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -47,10 +45,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
 
-          if (await (data!['fname']) != null) {
+          if (await (data['fname']) != null) {
             final storage = FlutterSecureStorage();
             await storage.write(key: 'userId', value: userId);
-            await storage.write(key: 'userFname', value: (data!['fname']));
+            await storage.write(key: 'userFname', value: (data['fname']));
 
             Navigator.pushReplacement(
               context,
