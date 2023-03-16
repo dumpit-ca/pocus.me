@@ -32,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final CollectionReference _tasks =
       FirebaseFirestore.instance.collection('tasks');
+
   Query _today = FirebaseFirestore.instance
       .collection('tasks')
       .where('user', isEqualTo: UserData().getUserId())
@@ -54,7 +55,17 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.green[300]));
+        SystemUiOverlayStyle(statusBarColor: Color.fromRGBO(40, 182, 126, 1)));
+  }
+
+  void addBreak() async {
+    await _tasks.add({
+      'user': UserData().getUserId(),
+      'task': 'Break Mode',
+      'time': focusedMins.floor(),
+      'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      'done': true
+    });
   }
 
   void startTimer() {
@@ -68,7 +79,12 @@ class _MainScreenState extends State<MainScreen> {
             timer.cancel();
             value = defaultValue;
             isStarted = false;
-            _update();
+
+            if (currentTaskId != '') {
+              _update();
+            } else {
+              addBreak();
+            }
           });
         } else {
           setState(() {
@@ -139,10 +155,12 @@ class _MainScreenState extends State<MainScreen> {
                                       shadowWidth: 0,
                                     ),
                                     customColors: CustomSliderColors(
-                                      trackColor: Colors.green[300],
-                                      progressBarColor: Colors.green[700],
+                                      trackColor:
+                                          Color.fromRGBO(40, 182, 126, 1),
+                                      progressBarColor:
+                                          Color.fromRGBO(28, 76, 78, 1),
                                       hideShadow: true,
-                                      dotColor: Colors.green[700],
+                                      dotColor: Color.fromRGBO(28, 76, 78, 1),
                                     ),
                                     size: 300,
                                     angleRange: 360,
@@ -199,19 +217,19 @@ class _MainScreenState extends State<MainScreen> {
                                                         Icons
                                                             .pause_circle_filled,
                                                         size: 50,
-                                                        color:
-                                                            Colors.green[900],
+                                                        color: Color.fromRGBO(
+                                                            40, 182, 126, 1),
                                                       )
                                                     : Icon(
                                                         Icons
                                                             .play_circle_filled,
                                                         size: 50,
-                                                        color:
-                                                            Colors.green[900],
+                                                        color: Color.fromRGBO(
+                                                            40, 182, 126, 1),
                                                       )),
                                             IconButton(
                                                 padding: EdgeInsets.fromLTRB(
-                                                    5, 10, 0, 0),
+                                                    0, 10, 0, 0),
                                                 onPressed: () {
                                                   setState(() {
                                                     value = lastValue;
@@ -225,9 +243,93 @@ class _MainScreenState extends State<MainScreen> {
                                                     child: Icon(
                                                       Icons
                                                           .replay_circle_filled,
-                                                      color: Colors.green[900],
+                                                      color: Color.fromRGBO(
+                                                          40, 182, 126, 1),
                                                       size: 50,
                                                     ))),
+                                            Container(
+                                              margin: EdgeInsets.fromLTRB(
+                                                  10, 10, 0, 0),
+                                              child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .resolveWith<
+                                                                  Color>(
+                                                        (Set<MaterialState>
+                                                            states) {
+                                                          if (currentTaskId ==
+                                                              '') {
+                                                            // Change the color darkness when the button is pressed
+                                                            return Color
+                                                                .fromRGBO(28,
+                                                                    76, 78, 1);
+                                                          } else {
+                                                            // Use the default color when the button is not pressed
+                                                            return Color
+                                                                .fromRGBO(
+                                                                    40,
+                                                                    182,
+                                                                    126,
+                                                                    1);
+                                                          }
+                                                        },
+                                                      ),
+                                                      shape: MaterialStateProperty.all<
+                                                              RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25.0),
+                                                      ))),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (isStarted) {
+                                                        _timer.cancel();
+                                                      }
+                                                      isStarted = false;
+                                                      currentTaskId = '';
+                                                      currentTaskInfo = '';
+                                                      currentTaskMin = '';
+                                                      value = defaultValue;
+
+                                                      if (currentTaskId != '') {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                            content: Text(
+                                                                'Set to Break Mode, Task Cleared from Timer.'),
+                                                          ),
+                                                        );
+                                                      } else if (currentTaskId ==
+                                                          '') {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                            content: Text(
+                                                                'Already in Break Mode. No Task Selected.'),
+                                                          ),
+                                                        );
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(4),
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text("Break"),
+                                                          Text("Mode"),
+                                                        ]),
+                                                  )),
+                                            )
                                           ],
                                         )
                                       ],
@@ -284,14 +386,14 @@ class _MainScreenState extends State<MainScreen> {
                             child: ListTile(
                                 title: Text(documentSnapshot.get('task'),
                                     style: TextStyle(
-                                        color: Colors.green[900],
+                                        color: Color.fromRGBO(28, 76, 78, 1),
                                         fontWeight: FontWeight.w600)),
                                 subtitle: Text(
                                     (documentSnapshot.get('time')! / 60)
                                             .toString() +
                                         ' minutes',
                                     style: TextStyle(
-                                        color: Colors.green[900],
+                                        color: Color.fromRGBO(28, 76, 78, 1),
                                         fontWeight: FontWeight.w400)),
                                 trailing: SizedBox(
                                   width: 50,
@@ -320,7 +422,8 @@ class _MainScreenState extends State<MainScreen> {
                                           icon: Icon(
                                             Icons.play_circle_fill,
                                             size: 30,
-                                            color: Colors.green[900],
+                                            color:
+                                                Color.fromRGBO(28, 76, 78, 1),
                                           )),
                                     ],
                                   ),

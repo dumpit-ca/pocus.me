@@ -313,7 +313,7 @@ class _TaskScreenState extends State<TaskScreen> {
           elevation: 0.0,
           centerTitle: false,
           backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Colors.green[600]),
+          iconTheme: IconThemeData(color: Color.fromRGBO(28, 76, 78, 1)),
           title: Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
@@ -346,7 +346,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           child: ListTile(
                               title: Text(documentSnapshot.get('task'),
                                   style: TextStyle(
-                                      color: Colors.green[900],
+                                      color: Color.fromRGBO(28, 76, 78, 1),
                                       fontWeight: FontWeight.w600)),
                               subtitle: Text(
                                   (documentSnapshot.get('time')! / 60)
@@ -354,7 +354,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                       ' minutes · ' +
                                       documentSnapshot.get('date'),
                                   style: TextStyle(
-                                      color: Colors.green[900],
+                                      color: Color.fromRGBO(28, 76, 78, 1),
                                       fontWeight: FontWeight.w400)),
                               trailing: SizedBox(
                                 width: 100,
