@@ -169,13 +169,15 @@ class _MainScreenState extends State<MainScreen> {
                                   onChange: (newValue) {
                                     setState(() {
                                       value = newValue;
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Modifying your focus time will set to break mode.'),
-                                        ),
-                                      );
+                                      if (currentTaskId != '') {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Modifying your focus time will set to break mode.'),
+                                          ),
+                                        );
+                                      }
                                       currentTaskId = '';
                                       currentTaskInfo = '';
                                       currentTaskMin = '';
