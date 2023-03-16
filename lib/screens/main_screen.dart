@@ -178,6 +178,8 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                         );
                                       }
+                                      _timer.cancel();
+                                      isStarted = false;
                                       currentTaskId = '';
                                       currentTaskInfo = '';
                                       currentTaskMin = '';
