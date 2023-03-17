@@ -109,9 +109,11 @@ class _TaskScreenState extends State<TaskScreen> {
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(
                                 context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime
-                                    .now(), //DateTime.now() - not to allow to choose before today.
+                                initialDate:
+                                    DateTime.now().subtract(Duration(days: 7)),
+                                firstDate: DateTime.now().subtract(Duration(
+                                    days:
+                                        7)), //DateTime.now() - not to allow to choose before today.
                                 lastDate: DateTime(2101));
 
                             if (pickedDate != null) {
@@ -147,7 +149,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                   'task': task,
                                   'time': time,
                                   'date': date,
-                                  'done': false,
+                                  'done': true,
                                   'break': false
                                 });
                                 _taskController.clear();
