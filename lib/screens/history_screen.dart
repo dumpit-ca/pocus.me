@@ -18,6 +18,8 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   getHistory _getHistory = getHistory();
   List<double> totals = [];
+  double max = 10.0;
+
   BarData myBarData = BarData(
     sunAmount: 0,
     monAmount: 0,
@@ -56,7 +58,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
       );
     });
 
+    double maxYaxis =
+        totals.reduce((value, element) => value > element ? value : element);
+
     setState(() {
+      if (maxYaxis > 10) {
+        max = maxYaxis + 1;
+      }
       myBarData.InitializeBarData();
     });
   }
@@ -101,7 +109,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 height: 200,
                 width: 350,
                 child: BarChart(BarChartData(
-                  maxY: 20,
+                  maxY: max,
                   minY: 0,
                   gridData: FlGridData(show: false),
                   borderData: FlBorderData(show: false),
@@ -129,7 +137,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                   borderRadius: BorderRadius.circular(5),
                                   backDrawRodData: BackgroundBarChartRodData(
                                     show: true,
-                                    toY: 20,
+                                    toY: max,
                                     color: Colors.grey[300],
                                   )),
                             ],
