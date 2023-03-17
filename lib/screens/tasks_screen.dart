@@ -56,7 +56,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
-                          maxLength: 20,
+                          maxLength: 45,
                           validator: (value) {
                             if (_taskController == null ||
                                 _taskController.text.trim().isEmpty) {
@@ -66,7 +66,16 @@ class _TaskScreenState extends State<TaskScreen> {
                           },
                           controller: _taskController,
                           decoration: const InputDecoration(
+                            icon:
+                                Icon(Icons.task_outlined), //icon of text field
+                            iconColor: Color.fromRGBO(40, 182, 126, 1),
                             labelText: 'Task',
+                            labelStyle:
+                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(40, 182, 126, 1)),
+                            ),
                           ),
                         ),
                         TextFormField(
@@ -86,7 +95,15 @@ class _TaskScreenState extends State<TaskScreen> {
                               decimal: true),
                           controller: _timeController,
                           decoration: const InputDecoration(
+                            icon: Icon(Icons.timer_sharp), //icon of text field
+                            iconColor: Color.fromRGBO(40, 182, 126, 1),
                             labelText: 'Time (in minutes)',
+                            labelStyle:
+                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(40, 182, 126, 1)),
+                            ),
                           ),
                         ),
                         TextFormField(
@@ -100,10 +117,18 @@ class _TaskScreenState extends State<TaskScreen> {
                           controller:
                               _dateController, //editing controller of this TextField
                           decoration: InputDecoration(
-                              icon: Icon(
-                                  Icons.calendar_today), //icon of text field
-                              labelText: "Enter Date" //label text of field
-                              ),
+                            icon:
+                                Icon(Icons.calendar_today), //icon of text field
+                            iconColor: Color.fromRGBO(40, 182, 126, 1),
+                            labelText: "Enter Date",
+                            labelStyle:
+                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(40, 182, 126, 1)),
+                            ),
+                            //label text of field
+                          ),
                           readOnly:
                               true, //set it true, so that user will not able to edit text
                           onTap: () async {
@@ -134,6 +159,12 @@ class _TaskScreenState extends State<TaskScreen> {
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromRGBO(28, 76, 78, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          ),
                           child: const Text('Add'),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
@@ -188,7 +219,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
-                          maxLength: 20,
+                          maxLength: 45,
                           validator: (value) {
                             if (_taskController == null ||
                                 _taskController.text.trim().isEmpty) {
@@ -198,7 +229,16 @@ class _TaskScreenState extends State<TaskScreen> {
                           },
                           controller: _taskController,
                           decoration: const InputDecoration(
+                            icon:
+                                Icon(Icons.task_outlined), //icon of text field
+                            iconColor: Color.fromRGBO(40, 182, 126, 1),
                             labelText: 'Task',
+                            labelStyle:
+                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(40, 182, 126, 1)),
+                            ),
                           ),
                         ),
                         TextFormField(
@@ -218,7 +258,15 @@ class _TaskScreenState extends State<TaskScreen> {
                               decimal: true),
                           controller: _timeController,
                           decoration: const InputDecoration(
+                            icon: Icon(Icons.timer_sharp), //icon of text field
+                            iconColor: Color.fromRGBO(40, 182, 126, 1),
                             labelText: 'Time (in minutes)',
+                            labelStyle:
+                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(40, 182, 126, 1)),
+                            ),
                           ),
                         ),
                         TextFormField(
@@ -232,10 +280,17 @@ class _TaskScreenState extends State<TaskScreen> {
                           controller:
                               _dateController, //editing controller of this TextField
                           decoration: InputDecoration(
-                              icon: Icon(
-                                  Icons.calendar_today), //icon of text field
-                              labelText: "Enter Date" //label text of field
-                              ),
+                            icon:
+                                Icon(Icons.calendar_today), //icon of text field
+                            iconColor: Color.fromRGBO(40, 182, 126, 1),
+                            labelText: "Enter Date", //label text of field
+                            labelStyle:
+                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(40, 182, 126, 1)),
+                            ),
+                          ),
                           readOnly:
                               true, //set it true, so that user will not able to edit text
                           onTap: () async {
@@ -266,6 +321,12 @@ class _TaskScreenState extends State<TaskScreen> {
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromRGBO(28, 76, 78, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          ),
                           child: const Text('Update'),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
@@ -304,6 +365,7 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Color.fromRGBO(40, 182, 126, 1),
           onPressed: () {
             _taskController.clear();
             _dateController.clear();

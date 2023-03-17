@@ -152,7 +152,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _emailController,
                         decoration: InputDecoration(
                           hintText: 'Email',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -168,7 +176,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _fnameController,
                         decoration: InputDecoration(
                           hintText: 'First Name',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -184,7 +200,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _lnameController,
                         decoration: InputDecoration(
                           hintText: 'Last Name',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -203,7 +227,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Password',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -222,7 +254,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Confirm Password',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -230,6 +270,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 )),
             SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(28, 76, 78, 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+              ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   if (_passwordController.text ==
@@ -244,7 +290,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                 }
               },
-              child: Text('Register'),
+              child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Register', style: TextStyle(fontSize: 18))),
             ),
             SizedBox(height: 20),
             GestureDetector(

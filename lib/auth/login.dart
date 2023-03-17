@@ -131,7 +131,15 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _emailController,
                         decoration: InputDecoration(
                           hintText: 'Email',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -150,7 +158,15 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Password',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(28, 76, 78, 1),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
                     ),
@@ -158,12 +174,20 @@ class _LoginPageState extends State<LoginPage> {
                 )),
             SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(28, 76, 78, 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+              ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   submitLoginForm();
                 }
               },
-              child: Text('Login'),
+              child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Login', style: TextStyle(fontSize: 18))),
             ),
             SizedBox(height: 20),
             GestureDetector(

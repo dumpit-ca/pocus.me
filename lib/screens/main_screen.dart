@@ -140,8 +140,8 @@ class _MainScreenState extends State<MainScreen> {
                       children: <Widget>[
                         Center(
                           child: SizedBox(
-                            width: 300,
-                            height: 300,
+                            width: 320,
+                            height: 320,
                             child: Stack(
                               children: [
                                 SleekCircularSlider(
@@ -163,7 +163,7 @@ class _MainScreenState extends State<MainScreen> {
                                       hideShadow: true,
                                       dotColor: Color.fromRGBO(28, 76, 78, 1),
                                     ),
-                                    size: 300,
+                                    size: 320,
                                     angleRange: 360,
                                     startAngle: 270,
                                   ),
@@ -196,13 +196,21 @@ class _MainScreenState extends State<MainScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                            currentTaskInfo == ''
-                                                ? "Ready to Focus?"
-                                                : currentTaskInfo,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18)),
+                                        SizedBox(
+                                          width: 200,
+                                          child: Center(
+                                            child: Text(
+                                                currentTaskInfo == ''
+                                                    ? "Ready to Focus?"
+                                                    : currentTaskInfo,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18)),
+                                          ),
+                                        ),
                                         Text(
                                             currentTaskInfo == ''
                                                 ? ''

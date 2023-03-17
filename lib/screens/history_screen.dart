@@ -132,7 +132,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             barRods: [
                               BarChartRodData(
                                   toY: data.y,
-                                  color: Color.fromRGBO(28, 76, 78, 1),
+                                  color: Color.fromRGBO(40, 182, 126, 1),
                                   width: 25,
                                   borderRadius: BorderRadius.circular(5),
                                   backDrawRodData: BackgroundBarChartRodData(

@@ -58,7 +58,14 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                           color: Color.fromRGBO(28, 76, 78, 1),
                         ),
                       ),
+                      SizedBox(height: 10),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(28, 76, 78, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                          ),
+                        ),
                         onPressed: () async {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -74,7 +81,10 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                             });
                           });
                         },
-                        child: Text('Log Out'),
+                        child: Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text('Log Out',
+                                style: TextStyle(fontSize: 20))),
                       ),
                       Card(
                           shape: RoundedRectangleBorder(
