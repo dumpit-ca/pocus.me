@@ -316,7 +316,7 @@ class _TaskScreenState extends State<TaskScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 20, width: MediaQuery.of(context).size.width),
                 Container(
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
