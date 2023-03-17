@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:pocusme/column_builder.dart';
 import 'package:pocusme/data/userdata.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:pocusme/graph/bar_data.dart';
+import 'package:pocusme/graph/getHistory.dart';
+import 'package:intl/intl.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -13,6 +16,18 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  getHistory _getHistory = getHistory();
+  List<double> totals = [];
+  BarData myBarData = BarData(
+    sunAmount: 0,
+    monAmount: 0,
+    tueAmount: 0,
+    wedAmount: 0,
+    thuAmount: 0,
+    friAmount: 0,
+    satAmount: 0,
+  );
+
   final CollectionReference _tasks =
       FirebaseFirestore.instance.collection('tasks');
   final Query _tasklist = FirebaseFirestore.instance
@@ -27,6 +42,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
         SystemUiOverlayStyle(statusBarColor: Colors.green[300]));
   }
 
+  Future<void> initializeData() async {
+    totals = await _getHistory.getPastWeekTotals();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      myBarData = BarData(
+        sunAmount: totals[0],
+        monAmount: totals[1],
+        tueAmount: totals[2],
+        wedAmount: totals[3],
+        thuAmount: totals[4],
+        friAmount: totals[5],
+        satAmount: totals[6],
+      );
+    });
+
+    setState(() {
+      myBarData.InitializeBarData();
+    });
+  }
+
   Future<void> _delete(String taskId) async {
     await _tasks.doc(taskId).delete();
 
@@ -39,10 +73,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    initializeData();
+    myBarData.InitializeBarData();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 20),
               Container(
@@ -58,6 +96,52 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
+              SizedBox(
+                height: 200,
+                width: 350,
+                child: BarChart(BarChartData(
+                  maxY: 20,
+                  minY: 0,
+                  gridData: FlGridData(show: false),
+                  borderData: FlBorderData(show: false),
+                  titlesData: FlTitlesData(
+                    show: true,
+                    topTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: getBottomTitles,
+                      ),
+                    ),
+                  ),
+                  barGroups: myBarData.barData
+                      .map((data) => BarChartGroupData(
+                            x: data.x,
+                            barRods: [
+                              BarChartRodData(
+                                  toY: data.y,
+                                  color: Color.fromRGBO(28, 76, 78, 1),
+                                  width: 25,
+                                  borderRadius: BorderRadius.circular(5),
+                                  backDrawRodData: BackgroundBarChartRodData(
+                                    show: true,
+                                    toY: 20,
+                                    color: Colors.grey[300],
+                                  )),
+                            ],
+                          ))
+                      .toList(),
+                )),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: Text('Number of Tasks'),
+              ),
+              SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: StreamBuilder(
@@ -109,4 +193,59 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
         ));
   }
+}
+
+Widget getBottomTitles(double value, TitleMeta meta) {
+  const style = TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 14,
+  );
+
+  late Widget texts;
+  String day7 = DateFormat('E').format(DateTime.now()).toString();
+  String day6 = DateFormat('E')
+      .format(DateTime.now().subtract(Duration(days: 1)))
+      .toString();
+  String day5 = DateFormat('E')
+      .format(DateTime.now().subtract(Duration(days: 2)))
+      .toString();
+  String day4 = DateFormat('E')
+      .format(DateTime.now().subtract(Duration(days: 3)))
+      .toString();
+  String day3 = DateFormat('E')
+      .format(DateTime.now().subtract(Duration(days: 4)))
+      .toString();
+  String day2 = DateFormat('E')
+      .format(DateTime.now().subtract(Duration(days: 5)))
+      .toString();
+  String day1 = DateFormat('E')
+      .format(DateTime.now().subtract(Duration(days: 6)))
+      .toString();
+
+  switch (value.toInt()) {
+    case 0:
+      texts = Text(day1, style: style);
+      break;
+    case 1:
+      texts = Text(day2, style: style);
+      break;
+    case 2:
+      texts = Text(day3, style: style);
+      break;
+    case 3:
+      texts = Text(day4, style: style);
+      break;
+    case 4:
+      texts = Text(day5, style: style);
+      break;
+    case 5:
+      texts = Text(day6, style: style);
+      break;
+    case 6:
+      texts = Text(day7, style: style);
+      break;
+  }
+
+  return SideTitleWidget(child: texts, axisSide: meta.axisSide);
 }

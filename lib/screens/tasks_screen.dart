@@ -146,7 +146,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                   'task': task,
                                   'time': time,
                                   'date': date,
-                                  'done': false
+                                  'done': false,
+                                  'break': false
                                 });
                                 _taskController.clear();
                                 _dateController.clear();
@@ -311,77 +312,82 @@ class _TaskScreenState extends State<TaskScreen> {
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Column(children: [
-            SizedBox(height: 20),
-            Container(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  "Pending Tasks",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 30,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
+                Container(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      "Pending Tasks",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 30,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: StreamBuilder(
-                  stream: _tasklist.snapshots(),
-                  builder:
-                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                    if (streamSnapshot.hasData) {
-                      return ColumnBuilder(
-                          itemCount: streamSnapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            final DocumentSnapshot documentSnapshot =
-                                streamSnapshot.data!.docs[index];
-                            return Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  side: BorderSide(
-                                      color: Colors.grey[300]!, width: 1)),
-                              margin: const EdgeInsets.all(8),
-                              child: ListTile(
-                                  title: Text(documentSnapshot.get('task'),
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(28, 76, 78, 1),
-                                          fontWeight: FontWeight.w600)),
-                                  subtitle: Text(
-                                      ((documentSnapshot.get('time')! / 60)
-                                                  .round())
-                                              .toString() +
-                                          ' minutes · ' +
-                                          documentSnapshot.get('date'),
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(28, 76, 78, 1),
-                                          fontWeight: FontWeight.w400)),
-                                  trailing: SizedBox(
-                                    width: 100,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              _update(documentSnapshot);
-                                            },
-                                            icon: const Icon(Icons.edit)),
-                                        IconButton(
-                                            onPressed: () {
-                                              _delete(documentSnapshot.id);
-                                            },
-                                            icon: const Icon(Icons.delete)),
-                                      ],
-                                    ),
-                                  )),
-                            );
-                          });
-                    }
-                    return Center(child: CircularProgressIndicator());
-                  }),
-            )
-          ]),
+                Container(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: StreamBuilder(
+                      stream: _tasklist.snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        if (streamSnapshot.hasData) {
+                          return ColumnBuilder(
+                              itemCount: streamSnapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot documentSnapshot =
+                                    streamSnapshot.data!.docs[index];
+                                return Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      side: BorderSide(
+                                          color: Colors.grey[300]!, width: 1)),
+                                  margin: const EdgeInsets.all(8),
+                                  child: ListTile(
+                                      title: Text(documentSnapshot.get('task'),
+                                          style: TextStyle(
+                                              color:
+                                                  Color.fromRGBO(28, 76, 78, 1),
+                                              fontWeight: FontWeight.w600)),
+                                      subtitle: Text(
+                                          ((documentSnapshot.get('time')! / 60)
+                                                      .round())
+                                                  .toString() +
+                                              ' minutes · ' +
+                                              documentSnapshot.get('date'),
+                                          style: TextStyle(
+                                              color:
+                                                  Color.fromRGBO(28, 76, 78, 1),
+                                              fontWeight: FontWeight.w400)),
+                                      trailing: SizedBox(
+                                        width: 100,
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  _update(documentSnapshot);
+                                                },
+                                                icon: const Icon(Icons.edit)),
+                                            IconButton(
+                                                onPressed: () {
+                                                  _delete(documentSnapshot.id);
+                                                },
+                                                icon: const Icon(Icons.delete)),
+                                          ],
+                                        ),
+                                      )),
+                                );
+                              });
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
+                )
+              ]),
         ));
   }
 }

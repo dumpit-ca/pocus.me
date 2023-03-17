@@ -62,6 +62,7 @@ class _MainScreenState extends State<MainScreen> {
     await _tasks.add({
       'user': UserData().getUserId(),
       'task': 'Break Mode',
+      'break': true,
       'time': focusedMins,
       'date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
       'done': true
