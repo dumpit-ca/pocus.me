@@ -341,7 +341,10 @@ class _MainScreenState extends State<MainScreen> {
                                                                 .center,
                                                         children: [
                                                           Text("Break"),
-                                                          Text("Mode"),
+                                                          Text(currentTaskId !=
+                                                                  ''
+                                                              ? 'Mode Off'
+                                                              : 'Mode On'),
                                                         ]),
                                                   )),
                                             )

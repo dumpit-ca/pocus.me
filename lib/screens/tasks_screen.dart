@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pocusme/column_builder.dart';
 import 'package:pocusme/data/userdata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -309,75 +310,78 @@ class _TaskScreenState extends State<TaskScreen> {
           child: const Icon(Icons.add),
         ),
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0.0,
-          centerTitle: false,
-          backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Color.fromRGBO(28, 76, 78, 1)),
-          title: Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Text(
-              "Tasks",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
+        body: SingleChildScrollView(
+          child: Column(children: [
+            SizedBox(height: 20),
+            Container(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  "Pending Tasks",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 30,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        body: Container(
-          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: StreamBuilder(
-              stream: _tasklist.snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                if (streamSnapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: streamSnapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        final DocumentSnapshot documentSnapshot =
-                            streamSnapshot.data!.docs[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(
-                                  color: Colors.grey[300]!, width: 1)),
-                          margin: const EdgeInsets.all(8),
-                          child: ListTile(
-                              title: Text(documentSnapshot.get('task'),
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(28, 76, 78, 1),
-                                      fontWeight: FontWeight.w600)),
-                              subtitle: Text(
-                                  ((documentSnapshot.get('time')! / 60).round())
-                                          .toString() +
-                                      ' minutes · ' +
-                                      documentSnapshot.get('date'),
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(28, 76, 78, 1),
-                                      fontWeight: FontWeight.w400)),
-                              trailing: SizedBox(
-                                width: 100,
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          _update(documentSnapshot);
-                                        },
-                                        icon: const Icon(Icons.edit)),
-                                    IconButton(
-                                        onPressed: () {
-                                          _delete(documentSnapshot.id);
-                                        },
-                                        icon: const Icon(Icons.delete)),
-                                  ],
-                                ),
-                              )),
-                        );
-                      });
-                }
-                return Center(child: CircularProgressIndicator());
-              }),
+            Container(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: StreamBuilder(
+                  stream: _tasklist.snapshots(),
+                  builder:
+                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    if (streamSnapshot.hasData) {
+                      return ColumnBuilder(
+                          itemCount: streamSnapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final DocumentSnapshot documentSnapshot =
+                                streamSnapshot.data!.docs[index];
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  side: BorderSide(
+                                      color: Colors.grey[300]!, width: 1)),
+                              margin: const EdgeInsets.all(8),
+                              child: ListTile(
+                                  title: Text(documentSnapshot.get('task'),
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(28, 76, 78, 1),
+                                          fontWeight: FontWeight.w600)),
+                                  subtitle: Text(
+                                      ((documentSnapshot.get('time')! / 60)
+                                                  .round())
+                                              .toString() +
+                                          ' minutes · ' +
+                                          documentSnapshot.get('date'),
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(28, 76, 78, 1),
+                                          fontWeight: FontWeight.w400)),
+                                  trailing: SizedBox(
+                                    width: 100,
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              _update(documentSnapshot);
+                                            },
+                                            icon: const Icon(Icons.edit)),
+                                        IconButton(
+                                            onPressed: () {
+                                              _delete(documentSnapshot.id);
+                                            },
+                                            icon: const Icon(Icons.delete)),
+                                      ],
+                                    ),
+                                  )),
+                            );
+                          });
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
+            )
+          ]),
         ));
   }
 }
