@@ -314,8 +314,8 @@ class _MainScreenState extends State<MainScreen> {
                                                     setState(() {
                                                       if (isStarted) {
                                                         _timer.cancel();
+                                                        isStarted = false;
                                                       }
-                                                      isStarted = false;
 
                                                       value = defaultValue;
                                                       if (currentTaskId != '') {
@@ -430,6 +430,11 @@ class _MainScreenState extends State<MainScreen> {
                                       IconButton(
                                           onPressed: () {
                                             setState(() {
+                                              if (isStarted) {
+                                                isStarted = false;
+                                                _timer.cancel();
+                                              }
+
                                               value =
                                                   documentSnapshot.get('time');
                                               isStarted = true;
