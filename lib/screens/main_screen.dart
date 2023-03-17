@@ -196,10 +196,22 @@ class _MainScreenState extends State<MainScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text("Ready to Focus?",
+                                        Text(
+                                            currentTaskInfo == ''
+                                                ? "Ready to Focus?"
+                                                : currentTaskInfo,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 15)),
+                                                fontSize: 18)),
+                                        Text(
+                                            currentTaskInfo == ''
+                                                ? ''
+                                                : currentTaskMin + " mins",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: currentTaskInfo == ''
+                                                    ? 1
+                                                    : 15)),
                                         Text(
                                           "${(value ~/ 3600).toInt().toString().padLeft(2, '0')}:${((value - (3600 * (value ~/ 3600))) ~/ 60).toInt().toString().padLeft(2, '0')}:${(value % 60).toInt().toString().padLeft(2, '0')}",
                                           style: TextStyle(
@@ -372,15 +384,12 @@ class _MainScreenState extends State<MainScreen> {
                   child: Text(
                       currentTaskInfo == ''
                           ? "Choose a Task!"
-                          : currentTaskInfo,
+                          : "Task is Ongoing",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.w600)),
                 ),
                 Center(
-                  child: Text(
-                      currentTaskMin == ''
-                          ? "Scheduled Tasks for Today"
-                          : currentTaskMin,
+                  child: Text("Scheduled Tasks for Today",
                       style: TextStyle(fontSize: 15)),
                 )
               ]),
@@ -431,10 +440,9 @@ class _MainScreenState extends State<MainScreen> {
                                               currentTaskInfo =
                                                   documentSnapshot.get('task');
                                               currentTaskMin = (documentSnapshot
-                                                              .get('time')! /
-                                                          60)
-                                                      .toString() +
-                                                  ' minutes';
+                                                          .get('time')! /
+                                                      60)
+                                                  .toString();
                                               startTimer();
                                             });
                                           },

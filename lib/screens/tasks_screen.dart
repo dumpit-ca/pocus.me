@@ -56,6 +56,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
+                          maxLength: 20,
                           validator: (value) {
                             if (_taskController == null ||
                                 _taskController.text.trim().isEmpty) {
@@ -187,6 +188,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
+                          maxLength: 20,
                           validator: (value) {
                             if (_taskController == null ||
                                 _taskController.text.trim().isEmpty) {
