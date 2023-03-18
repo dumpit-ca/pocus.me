@@ -268,9 +268,11 @@ class _MainScreenState extends State<MainScreen> {
                                                     0, 10, 0, 0),
                                                 onPressed: () {
                                                   setState(() {
+                                                    if (isStarted) {
+                                                      _timer.cancel();
+                                                      isStarted = false;
+                                                    }
                                                     value = lastValue;
-                                                    _timer.cancel();
-                                                    isStarted = false;
                                                   });
                                                 },
                                                 icon: Container(
