@@ -9,10 +9,11 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   String _currentPage = "Home";
-  List<String> pageKeys = ["Home", "Tasks", "History", "About"];
+  List<String> pageKeys = ["Home", "Tasks", "Notes", "History", "About"];
   Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "Home": GlobalKey<NavigatorState>(),
     "Tasks": GlobalKey<NavigatorState>(),
+    "Notes": GlobalKey<NavigatorState>(),
     "History": GlobalKey<NavigatorState>(),
     "About": GlobalKey<NavigatorState>(),
   };
@@ -93,6 +94,7 @@ class _MainAppState extends State<MainApp> {
         body: Stack(children: <Widget>[
           _buildOffstageNavigator("Home"),
           _buildOffstageNavigator("Tasks"),
+          _buildOffstageNavigator("Notes"),
           _buildOffstageNavigator("History"),
           _buildOffstageNavigator("About"),
         ]),
@@ -111,6 +113,10 @@ class _MainAppState extends State<MainApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.check_box),
               label: 'Tasks',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notes),
+              label: 'Notes',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.history),

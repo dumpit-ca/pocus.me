@@ -1,6 +1,6 @@
 class UserData {
-  late String _userId;
-  late String _userFname;
+  late String _userId = '';
+  late String _userFname = '';
 
   String get userId => _userId;
   String get userFname => _userFname;
