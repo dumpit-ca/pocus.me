@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pocusme/auth/register.dart';
-import 'package:pocusme/main_app.dart';
-import 'package:pocusme/data/userdata.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pocusme/auth/register.dart';
+import 'package:pocusme/data/userdata.dart';
+import 'package:pocusme/main_app.dart';
 
 class LoginPage extends StatefulWidget {
   @override

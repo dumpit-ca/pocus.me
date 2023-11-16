@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:intl/intl.dart';
 import 'package:pocusme/column_builder.dart';
 import 'package:pocusme/data/userdata.dart';
@@ -23,14 +24,9 @@ class _NotesScreenState extends State<NotesScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _TitleController = TextEditingController();
-  final TextEditingController _ContentController = TextEditingController();
+  final HtmlEditorController _ContentController = HtmlEditorController();
 
-  Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
-    if (documentSnapshot != null) {
-      _TitleController.text = documentSnapshot['title'];
-      _ContentController.text = documentSnapshot['content'].toString();
-    }
-
+  Future<void> _create() async {
     await showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -69,19 +65,13 @@ class _NotesScreenState extends State<NotesScreen> {
                             ),
                           ),
                         ),
-                        TextFormField(
-                          controller: _ContentController,
-                          maxLines: 8,
-                          decoration: const InputDecoration(
-                            icon: Icon(Icons.edit_square), //icon of text field
-                            iconColor: Color.fromRGBO(40, 182, 126, 1),
-                            labelText: 'Content',
-                            labelStyle:
-                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(40, 182, 126, 1)),
-                            ),
+                        HtmlEditor(
+                          controller: _ContentController, //required
+                          htmlEditorOptions: HtmlEditorOptions(
+                            hint: "Your note here...",
+                          ),
+                          otherOptions: OtherOptions(
+                            height: 400,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -99,7 +89,8 @@ class _NotesScreenState extends State<NotesScreen> {
                               var formatter = new DateFormat('yyyy-MM-dd');
                               String formattedDate = formatter.format(now);
                               final String Notes = _TitleController.text;
-                              final String Content = _ContentController.text;
+                              final String Content =
+                                  await _ContentController.getText();
                               await _Notes.add({
                                 'user': UserData().getUserId(),
                                 'title': Notes,
@@ -108,6 +99,7 @@ class _NotesScreenState extends State<NotesScreen> {
                               });
                               _TitleController.clear();
                               _ContentController.clear();
+                              Navigator.pop(context);
                             }
                           },
                         ),
@@ -118,9 +110,11 @@ class _NotesScreenState extends State<NotesScreen> {
   }
 
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
+    var initialText = '';
     if (documentSnapshot != null) {
       _TitleController.text = documentSnapshot['title'];
-      _ContentController.text = documentSnapshot['content'];
+      initialText = documentSnapshot['content'].toString();
+      _ContentController.setText(documentSnapshot['content'].toString());
     }
 
     await showModalBottomSheet(
@@ -161,19 +155,14 @@ class _NotesScreenState extends State<NotesScreen> {
                             ),
                           ),
                         ),
-                        TextFormField(
-                          controller: _ContentController,
-                          maxLines: 8,
-                          decoration: const InputDecoration(
-                            icon: Icon(Icons.edit_square), //icon of text field
-                            iconColor: Color.fromRGBO(40, 182, 126, 1),
-                            labelText: 'Content',
-                            labelStyle:
-                                TextStyle(color: Color.fromRGBO(28, 76, 78, 1)),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(40, 182, 126, 1)),
-                            ),
+                        HtmlEditor(
+                          controller: _ContentController, //required
+                          htmlEditorOptions: HtmlEditorOptions(
+                            hint: "Your note here...",
+                            initialText: initialText,
+                          ),
+                          otherOptions: OtherOptions(
+                            height: 400,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -188,7 +177,8 @@ class _NotesScreenState extends State<NotesScreen> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final String Notes = _TitleController.text;
-                              final String Content = _ContentController.text;
+                              final String Content =
+                                  await _ContentController.getText();
                               await _Notes.doc(documentSnapshot!.id)
                                   .update({'title': Notes, 'content': Content});
                               _TitleController.clear();
@@ -270,9 +260,7 @@ class _NotesScreenState extends State<NotesScreen> {
                                                   Color.fromRGBO(28, 76, 78, 1),
                                               fontWeight: FontWeight.w600)),
                                       subtitle: Text(
-                                          documentSnapshot.get('content') +
-                                              ' ' +
-                                              documentSnapshot.get('date'),
+                                          documentSnapshot.get('date'),
                                           style: TextStyle(
                                               color:
                                                   Color.fromRGBO(28, 76, 78, 1),
